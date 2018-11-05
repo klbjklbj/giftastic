@@ -7,27 +7,29 @@
 </head>
 
 <body>
-
-    <form>
-        <input type="text" id="inputMuppet"><br><br>
-        <button id="addMuppetButton">Add a Muppet</button>
-    </form>
+    <div>
+        <form>
+            <input type="text" id="inputMuppet"><br><br>
+            <button id="addMuppetButton">Add a Muppet</button>
+        </form>
+    </div>
 
     <div id="muppetButtonDiv"></div>
-
 
     <div id="muppets-appear-here"></div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript">
 
-        $(document).ready(function () {
+        $(document).ready(function () {            
 
             var topics = ["fozzy bear", "kermit", "gonzo"];
 
-            function makeButtons() {
+            var muppetButtonDiv = $("#muppetButtonDiv");
+
+            function makeButtons() { 
                 
-                var muppetButtonDiv = $("#muppetButtonDiv");
+                (muppetButtonDiv).empty();
 
                 for (let i = 0; i < topics.length; i++) {
 
@@ -45,28 +47,29 @@
                 }
             }
 
-            
+            //function addNewButton() {
+                $(document).on("click", "#addMuppetButton", function () {
 
-            function addNewButton() {
-                $("#addMuppetButton").on("click", function () {
+               // $("#addMuppetButton").on("click", function () {
 
                     var newMuppet = $("#inputMuppet").val().trim();
-                    alert(newMuppet);
-                    if (newMuppet == "") {
-                        return false; // added so user cannot add a blank button
-                    }
+                    // if (newMuppet == "") {
+                    //     alert("Please add a muppet");
+                    //     return false; // added so user cannot add a blank button
+                    // }
                     topics.push(newMuppet);
                     console.log(topics);
-                    alert(topics);
+                    alert(topics);                        
+                   
+                   makeButtons();
+                  return false; // why does this allow new button to array? 
 
-                    makeButtons();
-                    
                 });
-            }
+           // }
             makeButtons();
-            addNewButton();
+           // addNewButton();
 
-            $(".muppet-button").on("click", function () { //event listener for all button elements
+            $(".muppet-button").on("click", function () { //event listener for all .muppet-button
 
                 var muppet = $(this).attr("data-muppet"); // this refers to button that was clicked
 
@@ -128,13 +131,15 @@
 
                     $(this).attr("src", $(this).attr("data-still"));
                     $(this).attr("data-state", "still");
-                    
+
                 } else {
 
                     $(this).attr("src", $(this).attr("data-animate"));
                     $(this).attr("data-state", "animate");
                 }
             });
+
+            
 
         });
     </script>
