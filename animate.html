@@ -4,32 +4,62 @@
 <head>
     <meta charset="utf-8">
     <title>GifTastic - Week 6 Homework</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+
+
+    <style>
+
+        #muppetButtonDiv {
+    margin-top:40px;
+}
+
+
+
+.muppetDiv{
+    margin-top:40px;
+    display:inline-block;
+}
+        
+#muppets-appear-here {
+    margin-top: 50px;
+ display:inline;
+}
+    </style>
 </head>
 
 <body>
     <div>
-        <form>
-            <input type="text" id="inputMuppet"><br><br>
-            <button id="addMuppetButton">Add a Muppet</button>
-        </form>
+        <container>
+            <nav class="navbar navbar-light bg-info">
+                <h2 class="text-warning">It's Time for the the Muppets!</h2>
+                <form class="form-inline">
+                    <input class="form-control mr-sm-2" id="inputMuppet" type="search" placeholder="Enter a Muppet's name"
+                        aria-label="Search">
+                    <button class="btn btn-outline-warning my-2 my-sm-0" id="addMuppetButton" type="submit">Add Muppet!</button>
+                </form>
+            </nav>
+
     </div>
 
     <div id="muppetButtonDiv"></div>
 
     <div id="muppets-appear-here"></div>
 
+    </container>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript">
 
-        $(document).ready(function () {            
+        $(document).ready(function () {
 
-            var topics = ["fozzy bear", "kermit", "gonzo"];
+            var topics = ["Fozzy Bear", "Kermit", "Gonzo", "Waldorf & Statler", "Swedish Chef"];
 
             var muppetButtonDiv = $("#muppetButtonDiv");
 
-            function makeButtons() { 
-                
-                (muppetButtonDiv).empty();
+            function makeButtons() {
+
+                (muppetButtonDiv).empty(); // to avoid duplicating button array
 
                 for (let i = 0; i < topics.length; i++) {
 
@@ -41,35 +71,33 @@
 
                     muppetButton.addClass("muppet-button");
 
+                    muppetButton.addClass("btn-info");
+
                     muppetButton.text(topics[i]);
 
                     $(muppetButtonDiv).append($(muppetButton));
                 }
             }
 
-            //function addNewButton() {
-                $(document).on("click", "#addMuppetButton", function () {
 
-               // $("#addMuppetButton").on("click", function () {
+            $(document).on("click", "#addMuppetButton", function () {
 
-                    var newMuppet = $("#inputMuppet").val().trim();
-                    // if (newMuppet == "") {
-                    //     alert("Please add a muppet");
-                    //     return false; // added so user cannot add a blank button
-                    // }
-                    topics.push(newMuppet);
-                    console.log(topics);
-                    alert(topics);                        
-                   
-                   makeButtons();
-                  return false; // why does this allow new button to array? 
+                var newMuppet = $("#inputMuppet").val().trim();
+                if (newMuppet == "") {
+                    alert("Please add a muppet");
+                    return false; // added so user cannot add a blank button
+                }
+                topics.push(newMuppet);
+                console.log(topics);
 
-                });
-           // }
+                makeButtons();
+                return false; // why does this allow new button to array?                               
+
+            });
+
             makeButtons();
-           // addNewButton();
 
-            $(".muppet-button").on("click", function () { //event listener for all .muppet-button
+            $(document).on("click", ".muppet-button", function () { //event listener for all .muppet-button's
 
                 var muppet = $(this).attr("data-muppet"); // this refers to button that was clicked
 
@@ -91,11 +119,14 @@
 
                                 var muppetDiv = $("<div>"); //create a div for gifs
 
+
                                 var rating = results[i].rating;  // store result item's rating
 
                                 var p = $("<p>").text("Rating: " + rating); //create <p> tag with result item's rating
 
                                 var muppetImage = $("<img>"); //creates image tag
+
+                                muppetDiv.addClass("muppetDiv");
 
                                 muppetImage.attr("src", results[i].images.fixed_height_small.url); // give image tag a src attribute of a property pulled off of result item
 
@@ -107,8 +138,9 @@
 
                                 muppetImage.addClass("gif");
 
-                                muppetDiv.append(p);
-                                muppetDiv.append(muppetImage); //append paragraph and muppetImage to gifDiv just created
+                                
+                                muppetDiv.append(muppetImage); 
+                                muppetDiv.append(p);  //append paragraph and muppetImage to gifDiv just created
 
                                 $("#muppets-appear-here").prepend(muppetDiv);
                             }
@@ -117,7 +149,6 @@
                     });
 
             });
-
 
             $(document).on("click", ".gif", function () {
 
@@ -139,7 +170,6 @@
                 }
             });
 
-            
 
         });
     </script>
