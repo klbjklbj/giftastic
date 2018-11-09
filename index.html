@@ -9,18 +9,42 @@
 
     <style>
 
+        .muppet-button {
+            color:teal;
+            background-color:white;
+            border-radius: 8px;
+            padding:10px;
+            font-weight: bold;  
+            text-decoration:none;          
+        }
+
+        button:hover
+         {
+            text-decoration:underline;
+            display:inline-block;
+        }
+
+        p {
+            text-align: center;            
+        }
+
+        body {
+            background-color:#F89406;
+        } 
+
         #muppetButtonDiv {
-            margin-top:40px;
+            margin-top:60px;
         }
 
         .muppetDiv{
             margin-top:40px;
-            display:inline-block;
-        
+            display:inline-block;        
         }
         
-        #muppets-appear-here {            
+        #muppets-appear-here { 
+            padding-top: 40px;           
             display:inline;
+            font: #F89406;
         }
 
     </style>
@@ -73,6 +97,8 @@
                     muppetButton.attr("data-muppet", topics[i]);
 
                     muppetButton.addClass("muppet-button");
+
+                    muppetButton.addClass("btn-caution");
 
                     muppetButton.text(topics[i]);
 
