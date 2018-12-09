@@ -1,4 +1,6 @@
-# giftastic
+# giftastic 
+
+Find the deployed version at https://klbjklbj.github.io/giftastic/.
 
 This project uses javascript with jquery to access Giphy with its API. 
 
